@@ -1,23 +1,22 @@
 import{Locator, Page} from "@playwright/test";
 
 export class LoginPage {
- page: Page
+  page: Page
+  SignUpLoginLink: Locator
   email: Locator
   password: Locator
-  RememberMeCheckbox: Locator
-  SignInButton: Locator
-  SuccessMessage: Locator
+  
+  LoginInButton: Locator
   FailureMessage: Locator
 
   constructor(page: Page){
 
     this.page = page
-    this.email = page.getByTestId('login-email')
-    this.password = page.getByTestId('login-password')
-    this.RememberMeCheckbox = page.getByRole('checkbox', {name: 'Remember me'})
-    this.SignInButton = page.locator('#login-submit')
-    this.SuccessMessage = page.getByRole('alert').filter({hasText: 'Login Successful! Welcome to Premium Banking.'})
-    this.FailureMessage = page.getByTestId('login-error')
+    this.SignUpLoginLink = page.getByRole('link',{name: ' Signup / Login'})
+    this.email = page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address')
+    this.password = page.getByPlaceholder('Password')
+    this.LoginInButton = page.getByRole('button', {name: 'Login'})
+    this.FailureMessage = page.getByText('Your email or password is incorrect!')
 }
 
 

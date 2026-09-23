@@ -5,28 +5,26 @@ test("Login with valid credentials", async ({page}) => {
 
     const loginPage = new LoginPage(page)
 
-    await page.goto("https://www.qapractice.com/practice-login-form")
-    await loginPage.email.fill("user@premiumbank.com")
-    await loginPage.password.fill("Bank@123")
-    await loginPage.RememberMeCheckbox.check()
-    expect(loginPage.RememberMeCheckbox).toBeChecked()
-    await loginPage.SignInButton.click()
-    await expect (loginPage.SuccessMessage).toHaveText("Login Successful! Welcome to Premium Banking.")
-
+    await page.goto("https://www.automationexercise.com/")
+    await loginPage.SignUpLoginLink.click()
+    await loginPage.email.fill("sheenam.fatima.91@gmail.com")
+    await loginPage.password.fill("Qazxsw@12345")
+    await loginPage.LoginInButton.click()
+    await expect(page).toHaveURL('https://www.automationexercise.com/')
+    
 })
 
-test("Login with invalid credentials", async ({page}) => {
+ test("Login with invalid credentials", async ({page}) => {
   
     const loginPage = new LoginPage(page)
-    
-    await page.goto("https://www.qapractice.com/practice-login-form")
-    await loginPage.email.fill("user1@premiumbank.com")
-    await loginPage.password.fill("Bank@123")
-    await loginPage.RememberMeCheckbox.check()
-    expect(loginPage.RememberMeCheckbox).toBeChecked()
-    await loginPage.SignInButton.click()
-    await expect (loginPage.FailureMessage).toHaveText("Invalid email id and password")
 
+    await page.goto("https://www.automationexercise.com/")
+    await loginPage.SignUpLoginLink.click()
+    await loginPage.email.fill("sheenam.fatima.91@gmail.com")
+    await loginPage.password.fill("Qazxsw@123456")
+    await loginPage.LoginInButton.click()
+    
+    await expect(loginPage.FailureMessage).toHaveText("Your email or password is incorrect!")
 
 
 
